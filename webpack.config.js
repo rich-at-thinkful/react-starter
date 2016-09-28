@@ -7,8 +7,12 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel' }
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+            { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
         ]
+    },
+    sassLoader: {
+        includePaths: [__dirname + '/sass']
     },
     devtool: 'source-map'
 };
