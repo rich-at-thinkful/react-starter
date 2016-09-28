@@ -16,5 +16,12 @@ module.exports = {
     sassLoader: {
         includePaths: [__dirname + '/sass']
     },
+    externals: {
+        "react": "React",
+        "react-dom":"ReactDOM",
+        "redux":"Redux",
+        "react-redux":"ReactRedux",
+        "react-router":"ReactRouter"
+    },    
     devtool: 'source-map'
 };

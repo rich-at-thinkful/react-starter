@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "run-s build:index watch",
+    "start": "run-s clean build:* watch",
     "watch": "run-p watch:js server",
+    "clean": "rm -rf dist",
     "build:index": "mkdir -p dist && cp index.html dist",
+    "build:css": "mkdir -p dist && cp main.css dist",
     "watch:js": "node node_modules/webpack/bin/webpack.js -wc",
     "server": "node node_modules/http-server/bin/http-server dist"
   },

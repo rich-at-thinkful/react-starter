@@ -1,8 +1,13 @@
+$main-background: #FFE19C;
+$text-color: #243E36;
+$text-font: Tahoma;
+
 .App {
-    background-color: lightblue;
+    background-color: $main-background;
+    color: $text-color;
+    font-family: $text-font;
     
     h1 {
-        font-family: Tahoma;
         font-size: 48pt;
     }
 }
