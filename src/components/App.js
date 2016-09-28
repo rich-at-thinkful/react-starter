@@ -12,6 +12,10 @@ var App = React.createClass({
         }
     },
     
+    onReset() {
+        this.setState({ dice: [] });
+    },
+    
     onAddDie() {
         var newDice = this.state.dice.slice();
         newDice.push(createDie());
@@ -19,11 +23,7 @@ var App = React.createClass({
     },
     
     onRollDice() {
-        var newDice = this.state.dice.map(function(die){
-            die.roll();
-            return die;
-        });
-        this.setState({ dice: newDice });
+        this.state.dice.forEach(die => this.onRollDie(die.id));
     },
     
     onRollDie(dieId) {
@@ -35,15 +35,28 @@ var App = React.createClass({
             }
         });
         
-        die.roll();
-        
-        var newDice = new Array().concat(
-            this.state.dice.slice(0, index),
-            die,
-            this.state.dice.slice(index + 1)
-        );
+        this.execDieRoll(die, index);
+    },
+    
+    execDieRoll(die, index){
+        var loop = 0;
+        var randEnd = Math.floor(Math.random() * 20) + 10;
 
-        this.setState({ dice: newDice });
+        var intervalId = setInterval(() => {
+            loop++;
+
+            die.roll();
+            
+            var newDice = new Array().concat(
+                this.state.dice.slice(0, index),
+                die,
+                this.state.dice.slice(index + 1)
+            );
+    
+            this.setState({ dice: newDice });
+
+            if (loop === randEnd) clearInterval(intervalId); 
+        }, 90);
     },
     
     render() {
@@ -56,6 +69,7 @@ var App = React.createClass({
                 </p>
                 <button onClick={this.onAddDie}>Add Die</button>
                 <button onClick={this.onRollDice}>Roll All Dice</button>
+                <button onClick={this.onReset}>RESET</button>
                 <DieList dice={this.state.dice} onRollDie={this.onRollDie} />
             </div>
         );
