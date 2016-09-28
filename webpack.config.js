@@ -1,6 +1,8 @@
+var packageData = require('./package.json');
+
 module.exports = {
     context: __dirname + "/src",
-    entry: "./index",
+    entry: "./" + packageData.main,
     output: {
         path: __dirname + "/dist",
         filename: "bundle.js"
