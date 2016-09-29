@@ -1,4 +1,5 @@
 var React = require('react');
+var update = require('react-addons-update');
 
 require('./App.scss');
 
@@ -23,38 +24,21 @@ var App = React.createClass({
     },
     
     onRollDice() {
-        this.state.dice.forEach(die => this.onRollDie(die.id));
+        this.state.dice.forEach((die, index) => this.onRollDie(die, index));
     },
     
-    onRollDie(dieId) {
-        var index;
-        var die = this.state.dice.find(function(die, ind){
-            if (die.id === dieId) {
-                index = ind;
-                return true;
-            }
-        });
-        
-        this.execDieRoll(die, index);
-    },
-    
-    execDieRoll(die, index){
+    onRollDie(die, index) {
         var loop = 0;
         var randEnd = Math.floor(Math.random() * 20) + 10;
-
+    
         var intervalId = setInterval(() => {
             loop++;
-
-            die.roll();
-            
-            var newDice = new Array().concat(
-                this.state.dice.slice(0, index),
-                die,
-                this.state.dice.slice(index + 1)
-            );
     
-            this.setState({ dice: newDice });
+            die.roll();
+            var newDice = update(this.state.dice, { $splice: [[index, 1, die]] });
 
+            this.setState({ dice: newDice });
+    
             if (loop === randEnd) clearInterval(intervalId); 
         }, 90);
     },

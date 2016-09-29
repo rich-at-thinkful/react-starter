@@ -4,16 +4,12 @@ require('./Die.scss');
 
 var Die = function (props) {
     return (
-        <div onClick={() => props.onRollDie(props.id)} className="Die">
+        <div onClick={() => props.onRollDie(props.die, props.diceIndex)} className="Die">
             <p>
-                {props.face}
+                {props.die.face}
             </p>
         </div>
     );
 };
-
-Die.defaultProps = {
-    face: Math.floor(Math.random() * 6) + 1
-}
 
 module.exports = Die;

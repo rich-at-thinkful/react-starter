@@ -7,8 +7,8 @@ var Die = require('./Die');
 var DieList = function (props) {
     return (
         <div className="DieList">
-            {props.dice.map(function(die){
-                return <Die key={die.id} id={die.id} face={die.face} onRollDie={props.onRollDie} />
+            {props.dice.map(function(die, index){
+                return <Die onRollDie={props.onRollDie} diceIndex={index} key={die.id} die={die} />
             })}
         </div>
     );
